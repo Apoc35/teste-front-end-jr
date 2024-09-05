@@ -1,8 +1,14 @@
 import "./styles/App.scss";
 import "./App.css";
+import ProductList from "./components/ProductList";
 
 function App() {
-  return <div>Teste</div>;
+  return (
+    <div>
+      <div>Teste</div>
+      <ProductList />
+    </div>
+  );
 }
 
 export default App;
