@@ -1,12 +1,14 @@
+import Header from "./components/header";
+
 import "./styles/App.scss";
 import "./App.css";
-import ProductList from "./components/ProductList";
+// import ProductList from "./components/ProductList";
 
 function App() {
   return (
     <div>
-      <div>Teste</div>
-      <ProductList />
+      <Header></Header>
+      {/* <div>Teste</div> */}
     </div>
   );
 }
