@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+import "../styles/product-list.scss";
+
+import Modal from "./modal";
+
+import rightArrow from "../assets/productAssets/Vector.svg";
+import leftArrow from "../assets/productAssets/Vector (1).svg";
 
 interface Product {
   productName: string;
@@ -86,6 +92,20 @@ const mockProducts = {
 function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const carouselRef = React.useRef<HTMLDivElement>(null);
+
+  const handleScroll = (direction: string) => {
+    if (carouselRef.current) {
+      const scrollAmount = 300; // Arrumar isso depois
+      if (direction === "left") {
+        carouselRef.current.scrollLeft -= scrollAmount;
+      } else {
+        carouselRef.current.scrollLeft += scrollAmount;
+      }
+    }
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -94,20 +114,72 @@ function ProductList() {
     }, 800);
   }, []);
 
+  const openModal = (product: Product) => {
+    setSelectedProduct(product);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   if (loading) {
     return <p>Carregando...</p>;
   }
 
   return (
-    <div className="product-list">
-      {products.map((product, index) => (
-        <div key={index}>
-          <h2>{product.productName}</h2>
-          <p>{product.descriptionShort}</p>
-          <img src={product.photo} alt={product.productName} />
-          <p>Price: ${product.price}</p>
+    <div>
+      <div className="product-section">
+        <h1 className="product-title">Produtos Relacionados</h1>
+        <div className="span-container">
+          <span className="span-content">Celular</span>
+          <span className="span-content">Acessórios</span>
+          <span className="span-content">Tablets</span>
+          <span className="span-content">Notebooks</span>
+          <span className="span-content">Tvs</span>
+          <span className="span-content">Ver todos</span>
         </div>
-      ))}
+      </div>
+      <div className="carousel-container">
+        <button
+          className="arrow left-arrow"
+          onClick={() => handleScroll("left")}
+        >
+          <img src={leftArrow} alt="" />
+        </button>
+        <div className="product-carousel" ref={carouselRef}>
+          {products.map((product, index) => (
+            <div
+              className="product-list"
+              key={index}
+              onClick={() => openModal(product)}
+            >
+              <img
+                className="product-photo"
+                src={product.photo}
+                alt={product.productName}
+              />
+              <h3>{product.productName}</h3>
+              <p>R$ {product.price}</p>
+              <p className="frete">Frete Grátis</p>
+              <button className="buy-button">Comprar</button>
+            </div>
+          ))}
+        </div>
+        <button
+          className="arrow right-arrow"
+          onClick={() => handleScroll("right")}
+        >
+          <img src={rightArrow} alt="" />
+        </button>
+      </div>
+
+      {/* Modal simples, alterar configuração dele se der tempo*/}
+      <Modal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        product={selectedProduct}
+      />
     </div>
   );
 }

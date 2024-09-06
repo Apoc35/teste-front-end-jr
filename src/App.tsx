@@ -1,5 +1,6 @@
 import Header from "./components/header";
 import Main from "./components/main";
+import ProductList from "./components/ProductList";
 
 // import ProductList from "./components/ProductList";
 
@@ -8,7 +9,7 @@ function App() {
     <div>
       <Header></Header>
       <Main />
-      {/* <div>Teste</div> */}
+      <ProductList />
     </div>
   );
 }
