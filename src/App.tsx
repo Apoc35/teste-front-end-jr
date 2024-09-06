@@ -1,13 +1,13 @@
 import Header from "./components/header";
+import Main from "./components/main";
 
-import "./styles/App.scss";
-import "./App.css";
 // import ProductList from "./components/ProductList";
 
 function App() {
   return (
     <div>
       <Header></Header>
+      <Main />
       {/* <div>Teste</div> */}
     </div>
   );

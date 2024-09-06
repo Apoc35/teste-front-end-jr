@@ -31,7 +31,7 @@ function Header() {
         </span>
       </div>
       <div className="mid-section">
-        <img className="vtx-icon" src={iconVtx} alt="Logo de marca VTX" />{" "}
+        <img className="vtx-icon" src={iconVtx} alt="Logo de marca VTX" />
         <div className="input-container">
           <img
             className="input-icon"
